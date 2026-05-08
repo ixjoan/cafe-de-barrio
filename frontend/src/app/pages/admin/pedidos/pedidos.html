@@ -1,0 +1,33 @@
+<h1>Gestión de Pedidos</h1>
+
+@if (pedidos().length === 0) {
+  <p class="vacio">No hay pedidos registrados aún.</p>
+} @else {
+  <div class="pedidos-lista">
+    @for (pedido of pedidos(); track pedido.id) {
+      <div class="pedido-card">
+        <div class="pedido-header">
+          <div>
+            <h3>Pedido #{{ pedido.id }} — {{ pedido.clienteNombre }}</h3>
+            <p>📱 {{ pedido.celular }} · 📍 {{ pedido.direccion }}</p>
+            <p class="fecha">{{ pedido.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
+          </div>
+          <div class="pedido-estado">
+            <span [class]="'badge ' + pedido.estado">{{ pedido.estado }}</span>
+            @if (estadoSiguiente(pedido.estado)) {
+              <button class="btn-estado" (click)="cambiarEstado(pedido.id, estadoSiguiente(pedido.estado))">
+                → {{ etiquetaSiguiente(pedido.estado) }}
+              </button>
+            }
+          </div>
+        </div>
+        <div class="pedido-detalles">
+          @for (d of pedido.detalles; track d.productoNombre) {
+            <span class="detalle-item">{{ d.productoNombre }} x{{ d.cantidad }} — S/ {{ d.subtotal.toFixed(2) }}</span>
+          }
+        </div>
+        <div class="pedido-total">Total: S/ {{ pedido.total.toFixed(2) }}</div>
+      </div>
+    }
+  </div>
+}

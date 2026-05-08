@@ -1,0 +1,71 @@
+<div class="admin-header">
+  <h1>Gestión de Productos</h1>
+  <button class="btn-nuevo" (click)="abrirNuevo()">+ Nuevo producto</button>
+</div>
+
+@if (modoFormulario()) {
+  <div class="formulario-card">
+    <h2>{{ editando() ? 'Editar' : 'Nuevo' }} producto</h2>
+    <div class="form-grid">
+      <div class="campo">
+        <label>Nombre</label>
+        <input type="text" [value]="form().nombre" (input)="setForm('nombre', $any($event.target).value)">
+      </div>
+      <div class="campo">
+        <label>Categoría</label>
+        <select [value]="form().categoriaId" (change)="setForm('categoriaId', +$any($event.target).value)">
+          <option value="0">Selecciona...</option>
+          @for (cat of categorias(); track cat.id) {
+            <option [value]="cat.id">{{ cat.nombre }}</option>
+          }
+        </select>
+      </div>
+      <div class="campo">
+        <label>Precio (S/)</label>
+        <input type="number" [value]="form().precio" (input)="setForm('precio', +$any($event.target).value)">
+      </div>
+      <div class="campo">
+        <label>Stock</label>
+        <input type="number" [value]="form().stock" (input)="setForm('stock', +$any($event.target).value)">
+      </div>
+      <div class="campo campo-full">
+        <label>Descripción</label>
+        <input type="text" [value]="form().descripcion" (input)="setForm('descripcion', $any($event.target).value)">
+      </div>
+      <div class="campo campo-full">
+        <label>URL de imagen</label>
+        <input type="text" [value]="form().imagenUrl" (input)="setForm('imagenUrl', $any($event.target).value)">
+      </div>
+    </div>
+    <div class="form-acciones">
+      <button class="btn-guardar" (click)="guardar()">Guardar</button>
+      <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+}
+
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (p of productos(); track p.id) {
+      <tr>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.categoriaNombre }}</td>
+        <td>S/ {{ p.precio.toFixed(2) }}</td>
+        <td>{{ p.stock }}</td>
+        <td class="acciones">
+          <button class="btn-editar" (click)="abrirEditar(p)">Editar</button>
+          <button class="btn-eliminar" (click)="eliminar(p.id)">Desactivar</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

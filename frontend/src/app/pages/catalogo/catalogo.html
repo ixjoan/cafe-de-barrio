@@ -1,0 +1,33 @@
+<div class="catalogo-header">
+  <h1>Nuestro Catálogo</h1>
+  <div class="filtros">
+    <button [class.activo]="categoriaSeleccionada() === null" (click)="filtrar(null)">Todos</button>
+    @for (cat of categorias(); track cat.id) {
+      <button [class.activo]="categoriaSeleccionada() === cat.id" (click)="filtrar(cat.id)">
+        {{ cat.nombre }}
+      </button>
+    }
+  </div>
+</div>
+
+<div class="productos-grid">
+  @for (producto of productos(); track producto.id) {
+    <div class="producto-card">
+      <a [routerLink]="['/producto', producto.id]">
+        <img [src]="producto.imagenUrl" [alt]="producto.nombre">
+        <div class="producto-info">
+          <h3>{{ producto.nombre }}</h3>
+          <p>{{ producto.descripcion }}</p>
+          <div class="producto-footer">
+            <span class="precio">S/ {{ producto.precio.toFixed(2) }}</span>
+            <span class="stock">Stock: {{ producto.stock }}</span>
+          </div>
+        </div>
+      </a>
+      <button class="btn-agregar" (click)="agregar(producto)" [disabled]="producto.stock === 0">
+        @if (mensajeAgregado() === producto.id) { ✓ Agregado }
+        @else { + Agregar al carrito }
+      </button>
+    </div>
+  }
+</div>

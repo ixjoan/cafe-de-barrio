@@ -1,0 +1,78 @@
+.navbar {
+  background-color: #1B3022;
+  color: white;
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .navbar-brand {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #D6DBC8;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    .navbar-logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+
+    a {
+      color: #D6DBC8;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+      &:hover { color: white; }
+    }
+
+    .carrito-btn {
+      background: #2d5a3d;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      position: relative;
+      color: white;
+
+      .badge {
+        background: #8FA382;
+        color: #1B3022;
+        border-radius: 50%;
+        padding: 0.1rem 0.4rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-left: 0.3rem;
+      }
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #D6DBC8;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      &:hover { background: rgba(255,255,255,0.1); color: white; }
+    }
+
+    .btn-registro {
+      background: #8FA382;
+      color: #1B3022 !important;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+      &:hover { background: #D6DBC8 !important; }
+    }
+  }
+}

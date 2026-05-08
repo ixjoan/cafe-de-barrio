@@ -1,0 +1,39 @@
+<h1>Tu Carrito</h1>
+
+@if (carritoService.carrito().length === 0) {
+  <div class="carrito-vacio">
+    <p>Tu carrito está vacío</p>
+    <a routerLink="/catalogo" class="btn-continuar">Ver catálogo</a>
+  </div>
+} @else {
+  <div class="carrito-contenido">
+    <div class="items">
+      @for (item of carritoService.carrito(); track item.producto.id) {
+        <div class="item">
+          <img [src]="item.producto.imagenUrl" [alt]="item.producto.nombre">
+          <div class="item-info">
+            <h3>{{ item.producto.nombre }}</h3>
+            <p>S/ {{ item.producto.precio.toFixed(2) }}</p>
+          </div>
+          <div class="item-cantidad">
+            <input type="number" [value]="item.cantidad" min="1"
+              [max]="item.producto.stock" (change)="actualizar(item.producto.id, $event)">
+          </div>
+          <div class="item-subtotal">
+            S/ {{ (item.producto.precio * item.cantidad).toFixed(2) }}
+          </div>
+          <button class="btn-eliminar" (click)="eliminar(item.producto.id)">✕</button>
+        </div>
+      }
+    </div>
+    <div class="resumen">
+      <h2>Resumen</h2>
+      <div class="total-linea">
+        <span>Total</span>
+        <span>S/ {{ carritoService.total().toFixed(2) }}</span>
+      </div>
+      <button class="btn-checkout" (click)="irACheckout()">Confirmar pedido</button>
+      <a routerLink="/catalogo" class="btn-continuar">Seguir comprando</a>
+    </div>
+  </div>
+}

@@ -1,0 +1,28 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <img src="https://i.postimg.cc/tgDm1HrZ/logooo.png" alt="Café de Barrio" class="auth-logo-img">
+
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+
+    <div class="campo">
+      <label>Usuario</label>
+      <input type="text" [value]="username()"
+        (input)="username.set($any($event.target).value)"
+        placeholder="Tu usuario">
+    </div>
+    <div class="campo">
+      <label>Contraseña</label>
+      <input type="password" [value]="password()"
+        (input)="password.set($any($event.target).value)"
+        placeholder="Tu contraseña">
+    </div>
+
+    <button class="btn-auth" (click)="ingresar()" [disabled]="cargando()">
+      @if (cargando()) { Ingresando... } @else { Ingresar }
+    </button>
+
+    <p class="auth-link">¿No tienes cuenta? <a routerLink="/registro">Regístrate</a></p>
+  </div>
+</div>

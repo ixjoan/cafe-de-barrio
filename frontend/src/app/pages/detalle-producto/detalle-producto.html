@@ -1,0 +1,24 @@
+@if (producto(); as p) {
+  <div class="detalle-container">
+    <a routerLink="/catalogo" class="volver">← Volver al catálogo</a>
+    <div class="detalle-card">
+      <img [src]="p.imagenUrl" [alt]="p.nombre">
+      <div class="detalle-info">
+        <span class="categoria">{{ p.categoriaNombre }}</span>
+        <h1>{{ p.nombre }}</h1>
+        <p class="descripcion">{{ p.descripcion }}</p>
+        <p class="precio">S/ {{ p.precio.toFixed(2) }}</p>
+        <p class="stock">{{ p.stock }} unidades disponibles</p>
+        <div class="cantidad-control">
+          <button (click)="decrementar()">−</button>
+          <span>{{ cantidad() }}</span>
+          <button (click)="incrementar()">+</button>
+        </div>
+        <button class="btn-agregar" (click)="agregar()" [disabled]="p.stock === 0">
+          @if (agregado()) { ✓ Agregado al carrito }
+          @else { + Agregar al carrito }
+        </button>
+      </div>
+    </div>
+  </div>
+}

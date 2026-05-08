@@ -1,0 +1,45 @@
+@if (pedidoConfirmado()) {
+  <div class="confirmado">
+    <div class="check">✓</div>
+    <h2>¡Pedido registrado!</h2>
+    <p>Nos pondremos en contacto contigo pronto.</p>
+    <a routerLink="/catalogo" class="btn-volver">Volver al catálogo</a>
+  </div>
+} @else {
+  <div class="checkout-container">
+    <div class="formulario">
+      <h1>Confirmar pedido</h1>
+      @if (error()) {
+        <div class="error">{{ error() }}</div>
+      }
+      <div class="campo">
+        <label>Nombre completo</label>
+        <input type="text" [value]="nombre()" (input)="nombre.set($any($event.target).value)" placeholder="Tu nombre">
+      </div>
+      <div class="campo">
+        <label>Celular</label>
+        <input type="text" [value]="celular()" (input)="celular.set($any($event.target).value)" placeholder="999 999 999">
+      </div>
+      <div class="campo">
+        <label>Dirección de entrega</label>
+        <input type="text" [value]="direccion()" (input)="direccion.set($any($event.target).value)" placeholder="Av. ejemplo 123, distrito">
+      </div>
+      <button class="btn-confirmar" (click)="confirmar()" [disabled]="cargando()">
+        @if (cargando()) { Enviando... } @else { Confirmar pedido }
+      </button>
+    </div>
+    <div class="resumen">
+      <h2>Tu pedido</h2>
+      @for (item of carrito(); track item.producto.id) {
+        <div class="resumen-item">
+          <span>{{ item.producto.nombre }} x{{ item.cantidad }}</span>
+          <span>S/ {{ (item.producto.precio * item.cantidad).toFixed(2) }}</span>
+        </div>
+      }
+      <div class="resumen-total">
+        <span>Total</span>
+        <span>S/ {{ total().toFixed(2) }}</span>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,115 @@
+.checkout-container {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.formulario {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+  h1 { color: #1B3022; margin-bottom: 1.5rem; }
+
+  .error {
+    background: #fde8e8;
+    color: #c0392b;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .campo {
+    margin-bottom: 1.2rem;
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #D6DBC8;
+      border-radius: 8px;
+      font-size: 1rem;
+      &:focus { outline: none; border-color: #1B3022; }
+    }
+  }
+
+  .btn-confirmar {
+    width: 100%;
+    padding: 1rem;
+    background: #1B3022;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    &:hover { background: #2d5a3d; }
+    &:disabled { background: #ccc; cursor: not-allowed; }
+  }
+}
+
+.resumen {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+  h2 { color: #1B3022; margin-bottom: 1rem; }
+
+  .resumen-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #D6DBC8;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .resumen-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1B3022;
+  }
+}
+
+.confirmado {
+  text-align: center;
+  padding: 4rem 2rem;
+
+  .check {
+    width: 80px;
+    height: 80px;
+    background: #1B3022;
+    color: white;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+
+  h2 { font-size: 2rem; color: #1B3022; margin-bottom: 0.5rem; }
+  p { color: #666; margin-bottom: 2rem; }
+
+  .btn-volver {
+    padding: 0.8rem 2rem;
+    background: #1B3022;
+    color: white;
+    border-radius: 8px;
+    &:hover { background: #2d5a3d; }
+  }
+}
