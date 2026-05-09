@@ -6,7 +6,7 @@ import { isPlatformBrowser } from '@angular/common';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private apiUrl = 'https://cafe-de-barrio-backend.onrender.com/api';
+  private apiUrl = 'https://cafe-de-barrio-backend.onrender.com/api/auth';
   private tokenKey = 'cafe_token';
   private userKey = 'cafe_user';
   private platformId = inject(PLATFORM_ID);
