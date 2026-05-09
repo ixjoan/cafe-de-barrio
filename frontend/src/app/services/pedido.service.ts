@@ -6,7 +6,7 @@ import { PedidoRequest, PedidoResponse } from '../models/pedido.model';
 @Injectable({ providedIn: 'root' })
 export class PedidoService {
 
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'https://cafe-de-barrio-backend.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 

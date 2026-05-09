@@ -7,7 +7,7 @@ import { Categoria } from '../models/categoria.model';
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
 
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'https://cafe-de-barrio-backend.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 
