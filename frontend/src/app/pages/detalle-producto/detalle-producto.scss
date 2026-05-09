@@ -75,3 +75,13 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .detalle-card {
+    grid-template-columns: 1fr;
+
+    img {
+      height: 250px;
+    }
+  }
+}

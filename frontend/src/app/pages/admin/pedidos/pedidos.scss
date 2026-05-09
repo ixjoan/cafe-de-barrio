@@ -70,3 +70,14 @@ h1 { color: #1B3022; margin-bottom: 2rem; }
     text-align: right;
   }
 }
+
+@media (max-width: 768px) {
+  .pedido-header {
+    flex-direction: column !important;
+    gap: 1rem;
+
+    .pedido-estado {
+      align-items: flex-start !important;
+    }
+  }
+}

@@ -113,3 +113,9 @@
     &:hover { background: #2d5a3d; }
   }
 }
+
+@media (max-width: 768px) {
+  .checkout-container {
+    grid-template-columns: 1fr;
+  }
+}

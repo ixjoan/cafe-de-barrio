@@ -114,3 +114,16 @@
     &:disabled { background: #ccc; cursor: not-allowed; }
   }
 }
+
+@media (max-width: 768px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+}

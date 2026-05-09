@@ -93,3 +93,17 @@ h1 { margin-bottom: 2rem; color: #1B3022; }
     &:hover { background: #2d5a3d; }
   }
 }
+
+@media (max-width: 768px) {
+  .carrito-contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .item {
+    flex-wrap: wrap;
+
+    .item-subtotal {
+      text-align: left;
+    }
+  }
+}
