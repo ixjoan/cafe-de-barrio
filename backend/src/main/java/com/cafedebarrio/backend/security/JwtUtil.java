@@ -6,10 +6,22 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+
 @Component
 public class JwtUtil {
 
-    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    @Value("${jwt.secret}")
+    private String secretString;
+
+    private SecretKey key;
+
+    @PostConstruct
+    public void init() {
+        byte[] keyBytes = java.util.Base64.getDecoder().decode(secretString);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
+    }
     private final long EXPIRATION = 86400000;
 
     public String generateToken(String username, String rol) {
