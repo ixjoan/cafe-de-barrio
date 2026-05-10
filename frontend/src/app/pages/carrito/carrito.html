@@ -17,7 +17,8 @@
           </div>
           <div class="item-cantidad">
             <input type="number" [value]="item.cantidad" min="1"
-              [max]="item.producto.stock" (change)="actualizar(item.producto.id, $event)">
+              [max]="item.producto.stock"
+              (change)="actualizar(item.producto.id, $any($event.target).value, item.producto.stock)">
           </div>
           <div class="item-subtotal">
             S/ {{ (item.producto.precio * item.cantidad).toFixed(2) }}

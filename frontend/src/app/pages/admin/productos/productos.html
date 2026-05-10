@@ -14,10 +14,10 @@
       <div class="campo">
         <label>Categoría</label>
         <select [value]="form().categoriaId" (change)="setForm('categoriaId', +$any($event.target).value)">
-          <option value="0">Selecciona...</option>
-          @for (cat of categorias(); track cat.id) {
-            <option [value]="cat.id">{{ cat.nombre }}</option>
-          }
+        <option value="0">Selecciona...</option>
+        @for (cat of categorias(); track cat.id) {
+          <option [value]="cat.id" [selected]="cat.id === form().categoriaId">{{ cat.nombre }}</option>
+        }
         </select>
       </div>
       <div class="campo">

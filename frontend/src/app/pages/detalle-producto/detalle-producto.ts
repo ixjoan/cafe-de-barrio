@@ -21,12 +21,20 @@ export class DetalleProducto implements OnInit {
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productoService.getProducto(id).subscribe(p => this.producto.set(p));
+    this.productoService.getProducto(id).subscribe(p => {
+      this.producto.set(p);
+      const itemActual = this.carritoService.carrito().find(i => i.producto.id === p.id);
+      const cantidadEnCarrito = itemActual ? itemActual.cantidad : 0;
+      this.cantidadMaxima.set(p.stock - cantidadEnCarrito);
+    });
   }
 
+  cantidadMaxima = signal(0);
+
   incrementar() {
-    const p = this.producto();
-    if (p && this.cantidad() < p.stock) this.cantidad.update(c => c + 1);
+    if (this.cantidad() < this.cantidadMaxima()) {
+      this.cantidad.update(c => c + 1);
+    }
   }
 
   decrementar() {
@@ -36,6 +44,11 @@ export class DetalleProducto implements OnInit {
   agregar() {
     const p = this.producto();
     if (p) {
+      const itemActual = this.carritoService.carrito().find(i => i.producto.id === p.id);
+      const cantidadEnCarrito = itemActual ? itemActual.cantidad : 0;
+      if (cantidadEnCarrito + this.cantidad() > p.stock) {
+        return;
+      }
       this.carritoService.agregar(p, this.cantidad());
       this.agregado.set(true);
       setTimeout(() => this.agregado.set(false), 2000);

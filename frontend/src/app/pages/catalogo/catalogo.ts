@@ -41,6 +41,13 @@ export class Catalogo implements OnInit {
   }
 
   agregar(producto: Producto) {
+    const itemActual = this.carritoService.carrito().find(i => i.producto.id === producto.id);
+    const cantidadActual = itemActual ? itemActual.cantidad : 0;
+    
+    if (cantidadActual >= producto.stock) {
+      return;
+    }
+    
     this.carritoService.agregar(producto);
     this.mensajeAgregado.set(producto.id);
     setTimeout(() => this.mensajeAgregado.set(null), 1500);

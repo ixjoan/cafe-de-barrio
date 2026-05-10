@@ -12,9 +12,10 @@ export class Carrito {
   carritoService = inject(CarritoService);
   private router = inject(Router);
 
-  actualizar(productoId: number, event: Event) {
-    const valor = Number((event.target as HTMLInputElement).value);
-    this.carritoService.actualizar(productoId, valor);
+  actualizar(productoId: number, valor: string, stockMax: number) {
+  let cantidad = Number(valor);
+  if (cantidad > stockMax) cantidad = stockMax;
+  this.carritoService.actualizar(productoId, cantidad);
   }
 
   eliminar(productoId: number) {
