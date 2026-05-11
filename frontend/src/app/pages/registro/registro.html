@@ -16,12 +16,14 @@
       <label>Contraseña</label>
       <input type="password" [value]="password()"
         (input)="password.set($any($event.target).value)"
+        (keydown.enter)="registrarse()"
         placeholder="Crea una contraseña">
     </div>
     <div class="campo">
       <label>Confirmar contraseña</label>
       <input type="password" [value]="confirmar()"
         (input)="confirmar.set($any($event.target).value)"
+        (keydown.enter)="registrarse()"
         placeholder="Repite la contraseña">
     </div>
 

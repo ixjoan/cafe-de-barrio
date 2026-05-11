@@ -16,6 +16,7 @@
       <label>Contraseña</label>
       <input type="password" [value]="password()"
         (input)="password.set($any($event.target).value)"
+        (keydown.enter)="ingresar()"
         placeholder="Tu contraseña">
     </div>
 

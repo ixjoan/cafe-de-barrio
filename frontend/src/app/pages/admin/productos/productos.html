@@ -4,42 +4,47 @@
 </div>
 
 @if (modoFormulario()) {
-  <div class="formulario-card">
-    <h2>{{ editando() ? 'Editar' : 'Nuevo' }} producto</h2>
-    <div class="form-grid">
-      <div class="campo">
-        <label>Nombre</label>
-        <input type="text" [value]="form().nombre" (input)="setForm('nombre', $any($event.target).value)">
+  <div class="modal-overlay" (click)="cancelar()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ editando() ? 'Editar' : 'Nuevo' }} producto</h2>
+        <button class="btn-cerrar" (click)="cancelar()">✕</button>
       </div>
-      <div class="campo">
-        <label>Categoría</label>
-        <select [value]="form().categoriaId" (change)="setForm('categoriaId', +$any($event.target).value)">
-        <option value="0">Selecciona...</option>
-        @for (cat of categorias(); track cat.id) {
-          <option [value]="cat.id" [selected]="cat.id === form().categoriaId">{{ cat.nombre }}</option>
-        }
-        </select>
+      <div class="form-grid">
+        <div class="campo">
+          <label>Nombre</label>
+          <input type="text" [value]="form().nombre" (input)="setForm('nombre', $any($event.target).value)">
+        </div>
+        <div class="campo">
+          <label>Categoría</label>
+          <select [value]="form().categoriaId" (change)="setForm('categoriaId', +$any($event.target).value)">
+            <option value="0">Selecciona...</option>
+            @for (cat of categorias(); track cat.id) {
+              <option [value]="cat.id" [selected]="cat.id === form().categoriaId">{{ cat.nombre }}</option>
+            }
+          </select>
+        </div>
+        <div class="campo">
+          <label>Precio (S/)</label>
+          <input type="number" [value]="form().precio" (input)="setForm('precio', +$any($event.target).value)">
+        </div>
+        <div class="campo">
+          <label>Stock</label>
+          <input type="number" [value]="form().stock" (input)="setForm('stock', +$any($event.target).value)">
+        </div>
+        <div class="campo campo-full">
+          <label>Descripción</label>
+          <input type="text" [value]="form().descripcion" (input)="setForm('descripcion', $any($event.target).value)">
+        </div>
+        <div class="campo campo-full">
+          <label>URL de imagen</label>
+          <input type="text" [value]="form().imagenUrl" (input)="setForm('imagenUrl', $any($event.target).value)">
+        </div>
       </div>
-      <div class="campo">
-        <label>Precio (S/)</label>
-        <input type="number" [value]="form().precio" (input)="setForm('precio', +$any($event.target).value)">
+      <div class="form-acciones">
+        <button class="btn-guardar" (click)="guardar()">Guardar</button>
+        <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
       </div>
-      <div class="campo">
-        <label>Stock</label>
-        <input type="number" [value]="form().stock" (input)="setForm('stock', +$any($event.target).value)">
-      </div>
-      <div class="campo campo-full">
-        <label>Descripción</label>
-        <input type="text" [value]="form().descripcion" (input)="setForm('descripcion', $any($event.target).value)">
-      </div>
-      <div class="campo campo-full">
-        <label>URL de imagen</label>
-        <input type="text" [value]="form().imagenUrl" (input)="setForm('imagenUrl', $any($event.target).value)">
-      </div>
-    </div>
-    <div class="form-acciones">
-      <button class="btn-guardar" (click)="guardar()">Guardar</button>
-      <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
     </div>
   </div>
 }

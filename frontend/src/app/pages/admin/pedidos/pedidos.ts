@@ -18,22 +18,16 @@ export class Pedidos implements OnInit {
   }
 
   cargar() {
-    this.pedidoService.getPedidos().subscribe(p => this.pedidos.set(p));
+    this.pedidoService.getPedidos().subscribe(p => {
+      this.pedidos.set(p.sort((a, b) => b.id - a.id));
+    });
   }
 
   cambiarEstado(id: number, estado: string) {
-    this.pedidoService.actualizarEstado(id, estado).subscribe(() => this.cargar());
-  }
-
-  estadoSiguiente(estado: string): string {
-    if (estado === 'PENDIENTE') return 'EN_PREPARACION';
-    if (estado === 'EN_PREPARACION') return 'ENTREGADO';
-    return '';
-  }
-
-  etiquetaSiguiente(estado: string): string {
-    if (estado === 'PENDIENTE') return 'En preparación';
-    if (estado === 'EN_PREPARACION') return 'Entregado';
-    return '';
+    this.pedidoService.actualizarEstado(id, estado).subscribe(pedidoActualizado => {
+      this.pedidos.update(lista =>
+        lista.map(p => p.id === id ? { ...p, estado: pedidoActualizado.estado } : p)
+      );
+    });
   }
 }

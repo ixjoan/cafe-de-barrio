@@ -14,11 +14,13 @@
           </div>
           <div class="pedido-estado">
             <span [class]="'badge ' + pedido.estado">{{ pedido.estado }}</span>
-            @if (estadoSiguiente(pedido.estado)) {
-              <button class="btn-estado" (click)="cambiarEstado(pedido.id, estadoSiguiente(pedido.estado))">
-                → {{ etiquetaSiguiente(pedido.estado) }}
-              </button>
-            }
+            <select class="select-estado" 
+              [value]="pedido.estado"
+              (change)="cambiarEstado(pedido.id, $any($event.target).value)">
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="EN_PREPARACION">En preparación</option>
+              <option value="ENTREGADO">Entregado</option>
+            </select>
           </div>
         </div>
         <div class="pedido-detalles">

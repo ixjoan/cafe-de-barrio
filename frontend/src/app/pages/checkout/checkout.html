@@ -18,8 +18,10 @@
       </div>
       <div class="campo">
         <label>Celular</label>
-        <input type="tel" [value]="celular()"
+        <input type="tel" 
+          [value]="celular()"
           (input)="celular.set($any($event.target).value.replace(/[^0-9]/g, ''))"
+          (keydown)="$event.key.match(/[^0-9]/) && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab'].includes($event.key) && $event.preventDefault()"
           placeholder="999 999 999"
           maxlength="9">
       </div>
