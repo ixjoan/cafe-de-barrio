@@ -41,6 +41,16 @@
     .precio { font-size: 2rem; font-weight: bold; color: #1B3022; }
     .stock { color: #999; font-size: 0.9rem; }
 
+    .sin-stock-banner {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
     .cantidad-control {
       display: flex;
       align-items: center;
@@ -73,6 +83,7 @@
       &:hover { background: #2d5a3d; }
       &:disabled { background: #ccc; cursor: not-allowed; }
     }
+    
   }
 }
 

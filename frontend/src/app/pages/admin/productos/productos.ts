@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductoService } from '../../../services/producto.service';
 import { Producto } from '../../../models/producto.model';
@@ -17,6 +17,16 @@ export class Productos implements OnInit {
   categorias = signal<Categoria[]>([]);
   modoFormulario = signal(false);
   editando = signal<Producto | null>(null);
+  filtroBusqueda = signal('');
+  filtroCategoria = signal(0);
+
+  productosFiltrados = computed(() => {
+    return this.productos().filter(p => {
+      const coincideNombre = p.nombre.toLowerCase().includes(this.filtroBusqueda().toLowerCase());
+      const coincideCategoria = this.filtroCategoria() === 0 || p.categoriaId === this.filtroCategoria();
+      return coincideNombre && coincideCategoria;
+    });
+  });
 
   form = signal({
     nombre: '', descripcion: '', precio: 0,
@@ -29,7 +39,7 @@ export class Productos implements OnInit {
   }
 
   cargar() {
-    this.productoService.getProductos().subscribe(p => this.productos.set(p));
+    this.productoService.getTodosLosProductos().subscribe(p => this.productos.set(p));
   }
 
   abrirNuevo() {
@@ -52,22 +62,24 @@ export class Productos implements OnInit {
 
     obs.subscribe(productoGuardado => {
       if (e) {
-        // Editar: reemplaza en la misma posición
-        this.productos.update(lista =>
-          lista.map(p => p.id === e.id ? productoGuardado : p)
-        );
+        this.productos.update(lista => lista.map(p => p.id === e.id ? productoGuardado : p));
       } else {
-        // Nuevo: agrega al final
         this.productos.update(lista => [...lista, productoGuardado]);
       }
       this.modoFormulario.set(false);
     });
   }
 
-  eliminar(id: number) {
-    if (confirm('¿Desactivar este producto?')) {
-      this.productoService.eliminarProducto(id).subscribe(() => {
-        this.productos.update(lista => lista.filter(p => p.id !== id));
+  toggleActivo(p: Producto) {
+    if (p.activo) {
+      if (confirm('¿Desactivar este producto? Dejará de aparecer en el catálogo.')) {
+        this.productoService.eliminarProducto(p.id).subscribe(() => {
+          this.productos.update(lista => lista.map(x => x.id === p.id ? { ...x, activo: false } : x));
+        });
+      }
+    } else {
+      this.productoService.activarProducto(p.id).subscribe(() => {
+        this.productos.update(lista => lista.map(x => x.id === p.id ? { ...x, activo: true } : x));
       });
     }
   }

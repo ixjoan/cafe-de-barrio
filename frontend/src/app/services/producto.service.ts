@@ -38,4 +38,12 @@ export class ProductoService {
   eliminarProducto(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/productos/${id}`);
   }
+
+  activarProducto(id: number): Observable<Producto> {
+    return this.http.patch<Producto>(`${this.apiUrl}/productos/${id}/activar`, {});
+  }
+
+  getTodosLosProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiUrl}/productos/todos`);
+  }
 }

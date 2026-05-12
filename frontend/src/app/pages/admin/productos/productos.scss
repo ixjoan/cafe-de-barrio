@@ -203,3 +203,51 @@
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+.filtros-admin {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    input, select {
+      padding: 0.7rem 1rem;
+      border: 1px solid #D6DBC8;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      &:focus { border-color: #1B3022; }
+    }
+
+    input { flex: 1; }
+  }
+
+  tr.inactivo td { opacity: 0.5; }
+
+  .badge-activo {
+    background: #dcfce7;
+    color: #166534;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .badge-inactivo {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .btn-activar {
+    padding: 0.35rem 0.8rem;
+    background: #1B3022;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    &:hover { background: #2d5a3d; }
+  }

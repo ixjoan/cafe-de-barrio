@@ -42,4 +42,14 @@ public class ProductoController {
         productoService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{id}/activar")
+    public ResponseEntity<ProductoDTO> activar(@PathVariable Long id) {
+        return ResponseEntity.ok(productoService.activar(id));
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<ProductoDTO>> listarTodosAdmin() {
+        return ResponseEntity.ok(productoService.listarTodosIncluyendoInactivos());
+    }
 }

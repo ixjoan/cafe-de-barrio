@@ -3,6 +3,18 @@
   <button class="btn-nuevo" (click)="abrirNuevo()">+ Nuevo producto</button>
 </div>
 
+<div class="filtros-admin">
+  <input type="text" placeholder="Buscar por nombre..."
+    [value]="filtroBusqueda()"
+    (input)="filtroBusqueda.set($any($event.target).value)">
+  <select [value]="filtroCategoria()" (change)="filtroCategoria.set(+$any($event.target).value)">
+    <option value="0">Todas las categorías</option>
+    @for (cat of categorias(); track cat.id) {
+      <option [value]="cat.id">{{ cat.nombre }}</option>
+    }
+  </select>
+</div>
+
 @if (modoFormulario()) {
   <div class="modal-overlay" (click)="cancelar()">
     <div class="modal-card" (click)="$event.stopPropagation()">
@@ -56,19 +68,27 @@
       <th>Categoría</th>
       <th>Precio</th>
       <th>Stock</th>
+      <th>Estado</th>
       <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
-    @for (p of productos(); track p.id) {
-      <tr>
+    @for (p of productosFiltrados(); track p.id) {
+      <tr [class.inactivo]="!p.activo">
         <td>{{ p.nombre }}</td>
         <td>{{ p.categoriaNombre }}</td>
         <td>S/ {{ p.precio.toFixed(2) }}</td>
         <td>{{ p.stock }}</td>
+        <td>
+          <span [class]="p.activo ? 'badge-activo' : 'badge-inactivo'">
+            {{ p.activo ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
         <td class="acciones">
           <button class="btn-editar" (click)="abrirEditar(p)">Editar</button>
-          <button class="btn-eliminar" (click)="eliminar(p.id)">Desactivar</button>
+          <button [class]="p.activo ? 'btn-eliminar' : 'btn-activar'" (click)="toggleActivo(p)">
+            {{ p.activo ? 'Desactivar' : 'Activar' }}
+          </button>
         </td>
       </tr>
     }

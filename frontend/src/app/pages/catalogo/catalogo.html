@@ -12,9 +12,16 @@
 
 <div class="productos-grid">
   @for (producto of productos(); track producto.id) {
-    <div class="producto-card">
+    <div class="producto-card" [class.agotado]="producto.stock === 0">
       <a [routerLink]="['/producto', producto.id]">
-        <img [src]="producto.imagenUrl" [alt]="producto.nombre">
+        <div class="imagen-wrapper">
+          <img [src]="producto.imagenUrl" [alt]="producto.nombre">
+          @if (producto.stock === 0) {
+            <div class="overlay-agotado">
+              <span>Agotado</span>
+            </div>
+          }
+        </div>
         <div class="producto-info">
           <h3>{{ producto.nombre }}</h3>
           <p>{{ producto.descripcion }}</p>
@@ -25,7 +32,8 @@
         </div>
       </a>
       <button class="btn-agregar" (click)="agregar(producto)" [disabled]="producto.stock === 0">
-        @if (mensajeAgregado() === producto.id) { ✓ Agregado }
+        @if (producto.stock === 0) { Sin stock }
+        @else if (mensajeAgregado() === producto.id) { ✓ Agregado }
         @else { + Agregar al carrito }
       </button>
     </div>

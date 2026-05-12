@@ -61,6 +61,18 @@ public class ProductoService {
         productoRepository.save(p);
     }
 
+    public ProductoDTO activar(Long id) {
+        Producto p = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        p.setActivo(true);
+        return toDTO(productoRepository.save(p));
+    }
+
+    public List<ProductoDTO> listarTodosIncluyendoInactivos() {
+        return productoRepository.findAllByOrderByIdAsc()
+                .stream().map(this::toDTO).toList();
+    }
+
     private ProductoDTO toDTO(Producto p) {
         ProductoDTO dto = new ProductoDTO();
         dto.setId(p.getId());
