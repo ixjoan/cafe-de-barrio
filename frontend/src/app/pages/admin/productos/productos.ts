@@ -49,12 +49,26 @@ export class Productos implements OnInit {
     const obs = e
       ? this.productoService.actualizarProducto(e.id, this.form())
       : this.productoService.crearProducto(this.form());
-    obs.subscribe(() => { this.cargar(); this.modoFormulario.set(false); });
+
+    obs.subscribe(productoGuardado => {
+      if (e) {
+        // Editar: reemplaza en la misma posición
+        this.productos.update(lista =>
+          lista.map(p => p.id === e.id ? productoGuardado : p)
+        );
+      } else {
+        // Nuevo: agrega al final
+        this.productos.update(lista => [...lista, productoGuardado]);
+      }
+      this.modoFormulario.set(false);
+    });
   }
 
   eliminar(id: number) {
     if (confirm('¿Desactivar este producto?')) {
-      this.productoService.eliminarProducto(id).subscribe(() => this.cargar());
+      this.productoService.eliminarProducto(id).subscribe(() => {
+        this.productos.update(lista => lista.filter(p => p.id !== id));
+      });
     }
   }
 

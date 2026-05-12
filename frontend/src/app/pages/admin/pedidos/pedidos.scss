@@ -1,100 +1,178 @@
-h1 { color: #1B3022; margin-bottom: 2rem; }
-.vacio { color: #999; font-size: 1.1rem; }
+h1 {
+  color: #1B3022;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  letter-spacing: -0.5px;
+}
 
-.pedidos-lista { display: flex; flex-direction: column; gap: 1.2rem; }
+.vacio {
+  color: #999;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 3rem;
+}
+
+.pedidos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
 .pedido-card {
   background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  border: 1px solid #eee;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.11);
+  }
+
+  /* Franja de color lateral según estado */
+  &.PENDIENTE       { border-left: 5px solid #facc15; }
+  &.EN_PREPARACION  { border-left: 5px solid #6da882; }
+  &.ENTREGADO       { border-left: 5px solid #22c55e; }
+
+  .pedido-body {
+    padding: 1.4rem 1.6rem;
+  }
 
   .pedido-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 1rem;
+    gap: 1rem;
 
-    h3 { color: #1B3022; margin-bottom: 0.3rem; }
-    p { color: #666; font-size: 0.9rem; }
-    .fecha { color: #999; font-size: 0.8rem; }
+    .pedido-info {
+      flex: 1;
+      min-width: 0;
+
+      h3 {
+        color: #1B3022;
+        margin-bottom: 0.4rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-bottom: 0.3rem;
+
+        span {
+          color: #555;
+          font-size: 0.88rem;
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
+      }
+
+      .fecha {
+        color: #aaa;
+        font-size: 0.78rem;
+      }
+    }
+
+    .pedido-estado {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      flex-shrink: 0;
+
+      .badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+
+        &.PENDIENTE       { background: #fef9c3; color: #854d0e; }
+        &.EN_PREPARACION  { background: #D6DBC8; color: #1B3022; }
+        &.ENTREGADO       { background: #dcfce7; color: #166534; }
+      }
+
+      .select-estado {
+        padding: 0.4rem 0.8rem;
+        background: #1B3022;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        cursor: pointer;
+        outline: none;
+        transition: background 0.2s;
+
+        option {
+          background: white;
+          color: #1B3022;
+        }
+
+        &:hover { background: #2d5a3d; }
+      }
+    }
   }
 
-  .pedido-estado {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.5rem;
-
-    .badge {
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: bold;
-
-      &.PENDIENTE { background: #fef9c3; color: #854d0e; }
-      &.EN_PREPARACION { background: #D6DBC8; color: #1B3022; }
-      &.ENTREGADO { background: #dcfce7; color: #166534; }
-    }
-
-    .btn-estado {
-      padding: 0.4rem 0.8rem;
-      background: #1B3022;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      &:hover { background: #2d5a3d; }
-    }
+  /* Separador */
+  .divider {
+    border: none;
+    border-top: 1px dashed #e5e7eb;
+    margin: 0 1.6rem 1rem;
   }
 
   .pedido-detalles {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
+    padding: 0 1.6rem;
 
     .detalle-item {
-      background: #D6DBC8;
-      padding: 0.3rem 0.7rem;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      padding: 0.3rem 0.75rem;
       border-radius: 20px;
-      font-size: 0.85rem;
-      color: #1B3022;
+      font-size: 0.82rem;
+      color: #374151;
+      font-weight: 500;
     }
   }
 
-  .pedido-total {
-    font-weight: bold;
-    color: #1B3022;
-    text-align: right;
+  .pedido-footer {
+    background: #f9fafb;
+    padding: 0.8rem 1.6rem;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #f0f0f0;
+
+    .pedido-total {
+      font-weight: 700;
+      color: #1B3022;
+      font-size: 1rem;
+
+      span {
+        color: #2d5a3d;
+        font-size: 1.15rem;
+      }
+    }
   }
 }
 
 @media (max-width: 768px) {
   .pedido-header {
     flex-direction: column !important;
-    gap: 1rem;
 
     .pedido-estado {
       align-items: flex-start !important;
+      flex-direction: row !important;
+      flex-wrap: wrap;
     }
   }
-}
-.select-estado {
-  padding: 0.4rem 0.8rem;
-  background: #1B3022;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  outline: none;
-
-  option {
-    background: white;
-    color: #1B3022;
-  }
-
-  &:hover { background: #2d5a3d; }
 }

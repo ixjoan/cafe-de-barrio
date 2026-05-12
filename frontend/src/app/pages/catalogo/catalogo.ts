@@ -31,8 +31,12 @@ export class Catalogo implements OnInit {
 
   cargarProductos() {
     const cat = this.categoriaSeleccionada();
-    const obs = cat ? this.productoService.getProductosPorCategoria(cat) : this.productoService.getProductos();
-    obs.subscribe(p => this.productos.set(p));
+    const obs = cat
+      ? this.productoService.getProductosPorCategoria(cat)
+      : this.productoService.getProductos();
+    obs.subscribe(p =>
+      this.productos.set(p.sort((a, b) => a.id - b.id))
+    );
   }
 
   filtrar(categoriaId: number | null) {
