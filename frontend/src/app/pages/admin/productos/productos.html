@@ -13,6 +13,7 @@
       <option [value]="cat.id">{{ cat.nombre }}</option>
     }
   </select>
+  <span class="contador">{{ productosFiltrados().length }} producto(s)</span>
 </div>
 
 @if (modoFormulario()) {

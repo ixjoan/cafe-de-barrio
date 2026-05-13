@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProductoService } from '../../services/producto.service';
 import { CarritoService } from '../../services/carrito.service';
+import { ToastService } from '../../services/toast.service';
 import { Producto } from '../../models/producto.model';
 import { Categoria } from '../../models/categoria.model';
 
@@ -14,6 +15,7 @@ import { Categoria } from '../../models/categoria.model';
 export class Catalogo implements OnInit {
   private productoService = inject(ProductoService);
   private carritoService = inject(CarritoService);
+  private toastService = inject(ToastService);
 
   productos = signal<Producto[]>([]);
   categorias = signal<Categoria[]>([]);
@@ -47,13 +49,13 @@ export class Catalogo implements OnInit {
   agregar(producto: Producto) {
     const itemActual = this.carritoService.carrito().find(i => i.producto.id === producto.id);
     const cantidadActual = itemActual ? itemActual.cantidad : 0;
-    
+
     if (cantidadActual >= producto.stock) {
+      this.toastService.mostrar('Stock insuficiente', 'warning');
       return;
     }
-    
+
     this.carritoService.agregar(producto);
-    this.mensajeAgregado.set(producto.id);
-    setTimeout(() => this.mensajeAgregado.set(null), 1500);
+    this.toastService.mostrar('¡Producto agregado al carrito!', 'success');
   }
 }

@@ -251,3 +251,10 @@
     font-size: 0.82rem;
     &:hover { background: #2d5a3d; }
   }
+.contador {
+  display: flex;
+  align-items: center;
+  color: #999;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
